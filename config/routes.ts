@@ -52,6 +52,12 @@ export default [
     component: './TableList',
   },
   {
+    name: 'list.table-list',
+    icon: 'table',
+    path: '/list1',
+    component: './WalletNodeForm',
+  },
+  {
     path: '/',
     redirect: '/welcome',
   },
