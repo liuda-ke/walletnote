@@ -64,7 +64,7 @@ web_modules/
 .rts2_cache_umd/
 
 /dist
-/src/*
+/src/.umi*
 /node_modules/*
 # Optional REPL history
 .node_repl_history
