@@ -14,9 +14,8 @@ import moment from "moment";
 import { InboxOutlined } from "@ant-design/icons";
 import options from "./mock";
 import { PageContainer } from "@ant-design/pro-components";
-import { RecordWalletSave } from "@/services/recordwallet/api";
 
-const MyForm: React.FC = () => {
+const InCome: React.FC = () => {
   const [form] = Form.useForm();
   const [selectedOption, setSelectedOption] = useState<string>("");
   const [fileList, setFileList] = useState<any[]>([]);
@@ -25,24 +24,15 @@ const MyForm: React.FC = () => {
     setSelectedOption(value);
   };
 
-  const handleSubmit = async (values: any) => {
-    const files = values.files.map(
-      (file: { response: { filename: { key: any; value: any } } }) =>
-        `${file.response.filename.key},${file.response.filename.value}`
-    );
+  const handleSubmit = (values: any) => {
+    console.log("Received values of form: ", values);
+    
+    var files= values.files.map(x=>x.response).map(m=>m.filename)
     const request = {
-      Amount: values.amount,
       Things: values.things.join(","),
       Time: moment(values.date).format("YYYY-MM-DD HH:mm:ss"),
-      Files: files,
     };
-    await RecordWalletSave(request)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    console.log(request);
   };
 
   const normFile = (e: any) => {
@@ -73,6 +63,7 @@ const MyForm: React.FC = () => {
     onChange(info: { file: any; fileList: any }) {
       const { status } = info.file;
       if (status !== "uploading") {
+        console.log(info.file.response);
       }
       if (status === "done") {
         message.success(`${info.file.name} 上传成功.`);
@@ -84,8 +75,6 @@ const MyForm: React.FC = () => {
   };
   const onChange = (value: any, selectedOptions: any) => {
     console.log(value, selectedOptions);
-    const record = process.env;
-    console.log("Environment variables:", record);
   };
   return (
     <PageContainer>
@@ -145,4 +134,4 @@ const MyForm: React.FC = () => {
   );
 };
 
-export default MyForm;
+export default InCome;
