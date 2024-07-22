@@ -52,16 +52,16 @@ export default [
     component: './TableList',
   },
   {
-    name: 'list.expenditure',
-    icon: 'table',
-    path: '/expenditure',
-    component: './WalletNodeForm',
-  },
-  {
     name: 'list.income',
     icon: 'table',
     path: '/income',
     component: './InCome',
+  },
+  {
+    name: 'list.expenditure',
+    icon: 'table',
+    path: '/expenditure',
+    component: './WalletNodeForm',
   },
   {
     path: '/',

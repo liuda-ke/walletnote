@@ -14,6 +14,7 @@ import moment from "moment";
 import { InboxOutlined } from "@ant-design/icons";
 import options from "./mock";
 import { PageContainer } from "@ant-design/pro-components";
+import { RecordWalletSave } from "@/services/recordwallet/api";
 
 const InCome: React.FC = () => {
   const [form] = Form.useForm();
@@ -24,15 +25,24 @@ const InCome: React.FC = () => {
     setSelectedOption(value);
   };
 
-  const handleSubmit = (values: any) => {
-    console.log("Received values of form: ", values);
-    
-    var files= values.files.map(x=>x.response).map(m=>m.filename)
+  const handleSubmit = async (values: any) => {
+    const files = values.files.map(
+      (file: { response: { filename: { key: any; value: any } } }) =>
+        `${file.response.filename.key},${file.response.filename.value}`
+    );
     const request = {
+      Amount: values.amount,
       Things: values.things.join(","),
       Time: moment(values.date).format("YYYY-MM-DD HH:mm:ss"),
+      Files: files,
     };
-    console.log(request);
+    await RecordWalletSave(request)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const normFile = (e: any) => {

@@ -31,6 +31,7 @@ const MyForm: React.FC = () => {
         `${file.response.filename.key},${file.response.filename.value}`
     );
     const request = {
+      Type: 'pay',
       Amount: values.amount,
       Things: values.things.join(","),
       Time: moment(values.date).format("YYYY-MM-DD HH:mm:ss"),
